@@ -1,0 +1,16 @@
+.nav__burger {
+    margin-right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nav__burger-button {
+    background-image: url('../../../../images/burgerButton.png');
+    background-position: center;
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    background-color: transparent;
+}

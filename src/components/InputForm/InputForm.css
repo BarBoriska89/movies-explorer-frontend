@@ -1,0 +1,39 @@
+.auth__form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.auth__input {
+    width: 93%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #2F2F2F;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.auth__error {
+    text-align: left;
+    min-height: 12px;
+    color: #EE3465;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+@media screen and (max-width: 450px) {
+    .auth__input {
+        width: 88%;
+    }
+
+}
