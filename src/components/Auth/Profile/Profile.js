@@ -44,7 +44,7 @@ function Profile({ currentUser, onUpdate , onSignOut}) {
     return (
         <main className='main'>
             <section className='profile' aria-label='Профиль пользователя'>
-                <h2 className='profile__title'>Привет, {currentUser.name}!</h2>
+                <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
                 <form className='profile__form'>
 
                     <InputForm
@@ -82,12 +82,12 @@ function Profile({ currentUser, onUpdate , onSignOut}) {
                         {isEditProfile ?
                             <>
                                 <span className='profile__error'>{errors.user || errors.email}</span>
-                                <button type='submit' className='profile__submit' disabled={!isSuccessEdit} onClick={handleSaveChanges}>Сохранить</button>
+                                <button type='submit' className='button profile__submit' disabled={!isSuccessEdit} onClick={handleSaveChanges}>Сохранить</button>
                             </>
                             :
                             <>
-                                <button type='button' className='profile__button' onClick={handleEditProfile}>Редактировать</button>
-                                <button type='button' className='profile__button profile__button-exit'onClick={onSignOut}>Выйти из аккаунта</button>
+                                <button type='button' className='link profile__button' onClick={handleEditProfile}>Редактировать</button>
+                                <button type='button' className='link profile__button profile__button-exit'onClick={onSignOut}>Выйти из аккаунта</button>
                             </>
                         }
                     </div>

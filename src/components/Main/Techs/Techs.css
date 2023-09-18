@@ -112,13 +112,14 @@
 @media screen and (max-width: 650px) {
     .techs__list {
         padding: 40px 52px 70px 52px;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(84px,1fr));
+
     }
 
     .techs__list-item {
         margin-bottom: 0;
+        width: 100%;
     }
 }
 

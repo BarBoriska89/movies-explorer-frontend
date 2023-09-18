@@ -25,7 +25,7 @@ function MoviesCard({ movie }) {
         deleteMovieFromSaved(movie);
     };
 
-    const likeButtonClass = (`movies-card__like ${isLiked && 'movies-card__like_active'}`);
+    const likeButtonClass = (`button movies-card__like ${isLiked && 'movies-card__like_active'}`);
 
     return (
         <li className='movies-card'>
@@ -40,7 +40,7 @@ function MoviesCard({ movie }) {
                     <button className={likeButtonClass} type='button' aria-label='Нравится' onClick={handleCardLike} />
                     :
                     <div className='movies-card__delete-container'>
-                        <button className='movies-card__delete' type='button' aria-label='Удалить из сохраненных' onClick={handleDeleteMovie} />
+                        <button className='button movies-card__delete' type='button' aria-label='Удалить из сохраненных' onClick={handleDeleteMovie} />
                     </div>
                 }
             </div>

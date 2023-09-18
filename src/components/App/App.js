@@ -18,7 +18,7 @@ function App() {
 
   const navigate = useNavigate();
 
-  const [isLogged, setIsLogged] = React.useState(true);
+  const [isLogged, setIsLogged] = React.useState(false);
   const { savedMovies } = useSavedMovies();
   const { currentUser, handleSignUp, handleSignIn, handleUpdateProfile, handleSignOut } = useCurrentUser();
   console.log(savedMovies);
@@ -32,7 +32,7 @@ function App() {
   function onRegister(user) {
     handleSignUp(user);
     console.log(currentUser);
-    navigate('/sign-in', { replace: true });
+    navigate('/signin', { replace: true });
   }
 
   function onUpdateProfile(user) {
@@ -95,14 +95,14 @@ function App() {
           </>
         } />
 
-        <Route path='/sign-up' element={
+        <Route path='/signup' element={
           <Register
             currentUser={currentUser}
             onRegister={onRegister}
           />
         } />
 
-        <Route path='/sign-in' element={
+        <Route path='/signin' element={
           <Login
             currentUser={currentUser}
             onLogin={onLogin}
@@ -116,5 +116,7 @@ function App() {
     </div>
   );
 }
+
+document.documentElement.lang = 'ru';
 
 export default App;

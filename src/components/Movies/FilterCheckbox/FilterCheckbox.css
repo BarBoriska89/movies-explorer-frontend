@@ -1,12 +1,12 @@
 .filter-checkbox {
-    padding: 41px 0 69px 0;
+    padding: 37px 0 65px 0;
     border-bottom: 1px solid #424242;
 }
 
 .filter-checkbox__container {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
 }
 

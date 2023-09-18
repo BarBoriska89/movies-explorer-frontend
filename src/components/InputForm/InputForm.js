@@ -7,18 +7,18 @@ function InputForm(props) {
 
     return (
         location.pathname === '/profile' ?
-
-            <label className='profile__label'>
-                <h3 className='profile__label-name'>{props.title}</h3>
+            <div className='profile__input-container'>
+                <label className='profile__label'>{props.title}</label>
                 <input type={props.type} value={props.value || ''} className="profile__input" placeholder={props.placeholder} name={props.name}
                     id={props.id} minLength={props.minLength} maxLength={props.maxLength} required autoComplete="off" onChange={props.onChange} disabled={!props.isEditProfile} />
-            </label>
+
+            </div>
             :
             <div className="auth__form-section">
-                <h3 className='auth__input-title'>{props.title}</h3>
+                <h2 className='auth__input-title'>{props.title}</h2>
                 <input type={props.type} value={props.value || ''} className="auth__input auth__input_type_name" placeholder={props.placeholder} name={props.name}
                     id={props.id} minLength={props.minLength} maxLength={props.maxLength} required autoComplete="off" onChange={props.onChange} />
-                <span className="auth__error" id="user-name-error">{props.errors}</span>
+                <span className="auth__error" id={`user-${props.id}-error`}>{props.errors}</span>
             </div>
 
     );

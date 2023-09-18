@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import accountPicPath from '../../images/icon__account.png';
+import accountPicPath from '../../images/icon__account.svg';
 import '../Header/Header.css';
 import SizeTracker from "../SizeTracker/SizeTracker";
 import BurgerMenuButton from "../Header/BurgerMenu/BurgerMenuButton/BurgerMenuButton";
@@ -27,16 +27,16 @@ function Navigation({ isLogged, widthWindow }) {
         <>
             {isLogged === true && !isSmallScreen ?
 
-                <nav className="nav">
-                    <ul className="nav__movies">
-                        <li><Link to="/movies" className="nav__link" >Фильмы</Link></li>
-                        <li><Link to="/saved-movies" className="nav__link" >Сохранённые фильмы</Link></li>
+                <nav className="header__nav">
+                    <ul className="header__nav-movies">
+                        <li><Link to="/movies" className="link header__nav-link" >Фильмы</Link></li>
+                        <li><Link to="/saved-movies" className="link header__nav-link" >Сохранённые фильмы</Link></li>
                     </ul>
 
-                    <Link to="/profile" className={`nav__link nav__link-account ${location.pathname === '/' ? "" : "nav__link-account_dark"}`}>
-                        <span className="nav__account">Аккаунт</span>
-                        <div className={`nav__account-pic-container  ${location.pathname === '/' ? "" : "nav__account-pic-container_dark"}`}>
-                            <img src={accountPicPath} className="nav__account-pic" alt="Значок аккаунт" />
+                    <Link to="/profile" className={`link header__nav-link header__nav-link-account ${location.pathname === '/' ? "" : "header__nav-link-account_dark"}`}>
+                        <span className="header__nav-account">Аккаунт</span>
+                        <div className={`header__nav-account-pic-container  ${location.pathname === '/' ? "" : "header__nav-account-pic-container_dark"}`}>
+                            <img src={accountPicPath} className="header__nav-account-pic" alt="Значок аккаунт" />
                         </div>
                     </Link>
                 </nav>
@@ -51,9 +51,9 @@ function Navigation({ isLogged, widthWindow }) {
                         }
                         </>
                         :
-                        <nav className="nav__auth">
-                            <Link to="/sign-up" className="nav__link" >Регистрация</Link>
-                            <Link to="/sign-in" className="nav__button" >Войти</Link>
+                        <nav className="header__nav-auth">
+                            <Link to="/signup" className="link header__nav-link" >Регистрация</Link>
+                            <Link to="/signin" className="link header__nav-button" >Войти</Link>
                         </nav>}
 
                 </>

@@ -1,4 +1,4 @@
-.nav__burger {
+.header__nav-burger {
     margin-right: 0;
     width: 100%;
     display: flex;
@@ -6,8 +6,8 @@
     align-items: center;
 }
 
-.nav__burger-button {
-    background-image: url('../../../../images/burgerButton.png');
+.header__nav-burger-button {
+    background-image: url('../../../../images/burgerButton.svg');
     background-position: center;
     min-width: 44px;
     min-height: 44px;

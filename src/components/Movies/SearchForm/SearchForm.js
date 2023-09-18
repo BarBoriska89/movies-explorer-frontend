@@ -10,15 +10,17 @@ function SearchForm() {
     }
 
     return (
-        <section className='search-form' aria-label='Форма поиска'>
-            <form className='search-form__container'>
-                <input id='movie-search' name='movie' className='search-form__input' type='text' placeholder='Фильм' required />
-                <button className='search-form__button' type='submit' />
+        <section className='search' aria-label='Форма поиска'>
+            <form className='search__container'>
+                <div className='search__form'>
+                <input id='movie-search' name='movie' className='search__input' type='text' placeholder='Фильм' required />
+                <button className='search__button' type='submit' />
+                </div>
+                <FilterCheckbox
+                    isCheckedBox={isCheckedBox}
+                    onClick={handleChangeCheckbox}
+                />
             </form>
-            <FilterCheckbox
-                isCheckedBox={isCheckedBox}
-                onClick={handleChangeCheckbox}
-            />
         </section>
     );
 };

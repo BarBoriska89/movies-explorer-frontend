@@ -1,6 +1,6 @@
 import './FilterCheckbox.css';
-import checkboxOnPath from '../../../images/smalltumb.png';
-import checkboxOffPath from '../../../images/smalltumboff.png';
+import checkboxOnPath from '../../../images/smalltumb.svg';
+import checkboxOffPath from '../../../images/smalltumboff.svg';
 
 
 function FilterCheckbox(props) {

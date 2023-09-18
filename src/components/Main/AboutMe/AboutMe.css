@@ -95,7 +95,7 @@
     text-decoration: none;
 }
 
-.student_photo {
+.student__photo {
     background: url('../../../images/photo-1690741745153-636872122965.avif');
     background-repeat: no-repeat;
     background-size: cover;

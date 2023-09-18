@@ -19,9 +19,9 @@ function AboutMe() {
                             и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.
                         </p>
                     </div>
-                    <a href='https://github.com/BarBoriska89' className='student__link' target='_blank' rel="noreferrer">Github</a>
+                    <a href='https://github.com/BarBoriska89' className='link student__link' target='_blank' rel="noreferrer">Github</a>
                 </div>
-                <div className='student_photo'></div>
+                <div className='student__photo'></div>
             </div>
         </section>
 

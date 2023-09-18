@@ -1,10 +1,11 @@
 .header {
     background-color: #073042;
-    margin: 0 auto;
+    margin: 0 ;
     padding: 0 70px;
     height: 74px;
     display: flex;
-    width: calc(100%-140px);
+    /*width: calc(100%-140px);*/
+    flex-direction: row;
     align-items: center;
 }
 
@@ -23,7 +24,7 @@
     padding: 0;
 }
 
-.nav__link {
+.header__nav-link {
     color: #FFF;
     text-align: right;
     font-family: Inter;
@@ -34,7 +35,7 @@
     text-decoration: none;
 }
 
-.nav__movies {
+.header__nav-movies {
     display: flex;
     gap: 17px;
     list-style-type: none;
@@ -45,7 +46,7 @@
     padding-inline-start: 0;
 }
 
-.nav {
+.header__nav {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -53,7 +54,7 @@
     padding: 0 0 0 45px;
 }
 
-.nav__link-account {
+.header__nav-link-account {
     display: flex;
     gap: 7px;
     align-items: center;
@@ -65,11 +66,11 @@
     box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
 }
 
-.nav__link-account_dark {
+.header__nav-link-account_dark {
     background: #202020;
 }
 
-.nav__account-pic-container {
+.header__nav-account-pic-container {
     width: 26px;
     height: 26px;
     padding: 3px;
@@ -81,24 +82,24 @@
     background: #0F4157;
 }
 
-.nav__account-pic-container_dark {
+.header__nav-account-pic-container_dark {
     background: #313131;
 }
 
-.nav__account-pic {
+.header__nav-account-pic {
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
 }
 
-.nav__auth {
+.header__nav-auth {
     display: flex;
     gap: 27px;
     align-items: baseline;
     margin: auto 0 auto auto;
 }
 
-.nav__button {
+.header__nav-button {
     border-radius: 3px;
     background: #3DDC84;
     padding: 8px 20px;
@@ -123,20 +124,20 @@
     }
 
 
-    .nav__link {
+    .header__nav-link {
 
         font-size: 10px;
         font-weight: 500;
         line-height: 16px;
     }
 
-    .nav__button {
+    .header__nav-button {
         padding: 5px 12px;
         font-size: 10px;
         line-height: 16px;
     }
 
-    .nav__auth {
+    .header__nav-auth {
         gap: 14px;
     }
 }

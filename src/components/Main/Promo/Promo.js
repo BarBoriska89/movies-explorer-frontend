@@ -5,11 +5,10 @@ import promoLogoPath from '../../../images/pic__COLOR_landing-logo.svg';
 function Promo() {
 
     return (
-        <section className="promo__wrapper" aria-label="Учебный проект">
-            <div className="promo__container">
-                <img src={promoLogoPath} className="promo__logo" alt="Логотип Яндекс Практикума" />
+        <section className="promo" aria-label="Учебный проект">
+                         
                 <h1 className="promo__title">Учебный проект студента факультета Веб-разработки.</h1>
-            </div>
+           
         </section>
     );
 };

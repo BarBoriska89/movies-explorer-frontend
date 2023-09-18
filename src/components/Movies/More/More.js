@@ -6,7 +6,7 @@ function More({ location, onClick, visibleMovies , movies}) {
         <section className='more-movies' aria-label='Еще'>
             {location === '/movies' && visibleMovies <= movies.length ?
                
-                    <button className='more-movies__container more-movies__button' type='button' aria-label='Еще' onClick={onClick}>Ещё</button>
+                    <button className='button more-movies__container more-movies__button' type='button' aria-label='Еще' onClick={onClick}>Ещё</button>
                
                 :
                 ''

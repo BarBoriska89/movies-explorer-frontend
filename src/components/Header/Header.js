@@ -1,7 +1,6 @@
 import React from "react";
-import logoPicPath from '../../images/logo.png';
+import logoPicPath from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
-import accountPicPath from '../../images/icon__account.png';
 import './Header.css';
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import SizeTracker from "../SizeTracker/SizeTracker";
