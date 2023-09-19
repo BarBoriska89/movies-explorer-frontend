@@ -138,7 +138,7 @@
         line-height: 18px;
     }
 
-    .student_photo {
+    .student__photo {
         max-width: 255px;
         max-height: 307px;
     }
@@ -153,7 +153,7 @@
         justify-items: center;
     }
 
-    .student_photo {
+    .student__photo {
         grid-row: 1;
         max-width: 292px;
         min-height: 352px;
@@ -206,8 +206,7 @@
         line-height: 16px;
     }
 
-    .student_photo {
-
+    .student__photo {
         grid-row: 1;
         max-width: 292px;
         min-height: 352px;

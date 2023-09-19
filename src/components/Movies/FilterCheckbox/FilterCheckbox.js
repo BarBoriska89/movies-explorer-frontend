@@ -10,8 +10,8 @@ function FilterCheckbox(props) {
     return (
         <div className='filter-checkbox'>
             <div className='filter-checkbox__container'>
-                <img src={(props.isCheckedBox === true ? checkboxOnPath : checkboxOffPath)} alt="Искать короткометражки" className='filter-checkbox__pic' onClick={props.onClick} />
-                <span className='filter-checkbox__text'>Короткометражки</span>
+                <img src={(props.isCheckedBox === true ? checkboxOnPath : checkboxOffPath)} alt="Искать короткометражки" className='button filter-checkbox__pic' onClick={props.onClick} />
+                <label className='filter-checkbox__text'>Короткометражки</label>
             </div>
         </div>
     );

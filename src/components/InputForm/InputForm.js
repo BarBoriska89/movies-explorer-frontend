@@ -15,7 +15,7 @@ function InputForm(props) {
             </div>
             :
             <div className="auth__form-section">
-                <h2 className='auth__input-title'>{props.title}</h2>
+                <label className='auth__input-title'>{props.title}</label>
                 <input type={props.type} value={props.value || ''} className="auth__input auth__input_type_name" placeholder={props.placeholder} name={props.name}
                     id={props.id} minLength={props.minLength} maxLength={props.maxLength} required autoComplete="off" onChange={props.onChange} />
                 <span className="auth__error" id={`user-${props.id}-error`}>{props.errors}</span>

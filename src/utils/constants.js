@@ -11,6 +11,8 @@ import movie10Pic from '../images/10.svg';
 import movie11Pic from '../images/11.svg';
 import movie12Pic from '../images/12.svg';
 
+export const URL_BFM=' https://api.nomoreparties.co/beatfilm-movies';
+export const BASE_URL = 'https://api.diplom-ray89.nomoredomainsicu.ru';
 
 export const movies = [
     {
@@ -111,37 +113,3 @@ export const movies = [
     },
 ];
 
-
-
-export const savedMovies = [
-    {
-        _id: "1",
-        title: "33 слова о дизайне",
-        image: movie01Pic,
-        duration: 147,
-    },
-    {
-        _id: "2",
-        title: "Киноальманах «100 лет дизайна»",
-        image: movie02Pic,
-        duration: 147,
-    },
-    {
-        _id: "3",
-        title: "В погоне за Бенкси",
-        image: movie03Pic,
-        duration: 147,
-    },
-    {
-        _id: "4",
-        title: "Баския: Взрыв реальности",
-        image: movie04Pic,
-        duration: 147,
-    },
-    {
-        _id: "5",
-        title: "Баския: Взрыв реальности",
-        image: movie04Pic,
-        duration: 147,
-    },
-];

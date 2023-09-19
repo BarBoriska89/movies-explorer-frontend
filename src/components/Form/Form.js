@@ -11,7 +11,7 @@ function Form(props) {
 */
     return (
         <>
-            <Link to="/" className="auth__logo">
+            <Link to="/" className="link auth__logo">
                 <img src={logoPicPath} className="auth__logo-pic" alt="Логотип сервиса" />
             </Link>
             <h1 className="auth__title">{props.greetings}</h1>

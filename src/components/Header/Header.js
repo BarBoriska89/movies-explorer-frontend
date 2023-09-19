@@ -14,7 +14,7 @@ function Header(props) {
 
     return (
         <header className={`header ${(location.pathname === '/') ? '' : 'header_dark' }`}>
-            <Link to="/" className="header__logo">
+            <Link to="/" className="link header__logo">
                 <img src={logoPicPath} className="header__logo-pic" alt="Логотип сервиса" />
             </Link>
 

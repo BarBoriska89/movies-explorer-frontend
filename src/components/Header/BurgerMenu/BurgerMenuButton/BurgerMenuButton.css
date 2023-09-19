@@ -13,4 +13,15 @@
     min-height: 44px;
     border: none;
     background-color: transparent;
+    background-repeat: no-repeat;
+}
+
+
+@media screen and (max-width: 530px) {
+
+    .header__nav-burger-button {
+        min-width: 40px;
+        min-height: 43px;
+        background-size: 35px 43px;
+    }
 }

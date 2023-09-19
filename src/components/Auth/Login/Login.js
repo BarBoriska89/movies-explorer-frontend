@@ -29,6 +29,7 @@ function Login({ currentUser, onLogin }) {
                     >
 
                         <InputForm
+                            id="email"
                             name="email"
                             title="E-mail"
                             type="email"
@@ -43,6 +44,7 @@ function Login({ currentUser, onLogin }) {
                         />
 
                         <InputForm
+                            id="password"
                             name="password"
                             title="Пароль"
                             type="password"

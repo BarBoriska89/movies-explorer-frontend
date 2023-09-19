@@ -14,7 +14,8 @@
 
 .navtab__item{
     margin-top: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 24px;
+    line-height: 16px;
 }
 
 .navtab__link {
@@ -30,6 +31,11 @@
         gap: 24px;
     }
 
+    
+.navtab__item{
+    margin-top: 23px;
+    margin-bottom: 23px;
+}
     .navtab__link {
         text-align: center;
         font-size: 11px;

@@ -18,7 +18,7 @@ function App() {
 
   const navigate = useNavigate();
 
-  const [isLogged, setIsLogged] = React.useState(false);
+  const [isLogged, setIsLogged] = React.useState(true);
   const { savedMovies } = useSavedMovies();
   const { currentUser, handleSignUp, handleSignIn, handleUpdateProfile, handleSignOut } = useCurrentUser();
   console.log(savedMovies);
@@ -45,6 +45,10 @@ function App() {
     navigate('/', { replace: true });
   }
 
+  function handleSearchMovie({keyWords, isCheckedBox}){
+    console.log(keyWords);
+  }
+
   return (
     <div className="App">
       <Routes>
@@ -65,6 +69,7 @@ function App() {
             />
             <Movies
               movies={movies}
+              onSearchMovie={handleSearchMovie}
             />
             <Footer />
           </>
@@ -77,6 +82,7 @@ function App() {
             />
             <SavedMovies
               movies={savedMovies}
+              onSearchMovie={handleSearchMovie}
             />
             <Footer />
           </>
@@ -118,5 +124,6 @@ function App() {
 }
 
 document.documentElement.lang = 'ru';
+document.title='Movies Explorer';
 
 export default App;

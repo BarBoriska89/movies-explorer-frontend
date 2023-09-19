@@ -8,7 +8,7 @@ function BurgerMenu({ handleClose }) {
 
     return (
         <div className='header__nav-burger-menu'>
-            <button className='header__nav-burger-close' type="button" onClick={handleClose} />
+            <button className='button header__nav-burger-close' type="button" onClick={handleClose} />
             <nav className='header__nav-burger-links'>
                 <ul className="header__nav-burger-links-list">
                     <li><Link to="/" className={`link header__nav-burger-link ${location.pathname === '/' ? 'header__nav-burger-link_active' : ''}`} onClick={handleClose} >Главная</Link></li>
