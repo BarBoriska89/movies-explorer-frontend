@@ -8,10 +8,11 @@ function MoviesCardList({ movies, widthWindow }) {
 
     const location = useLocation();
     const smallScreen = widthWindow <= 767;
-    const mediumScreen = widthWindow <=1279;
-    const step = (mediumScreen ? (smallScreen? 5: 8) : 12);
-    const [visibleMovies, setVisibleMovies] = useState(step);
-    const visibleMovieSlice = movies.slice(0, visibleMovies);
+    const mediumScreen = widthWindow <= 1279;
+
+    const step = (mediumScreen ? (smallScreen ? 1 : 2) : 3);
+    const [visibleMovies, setVisibleMovies] = useState((mediumScreen ? (smallScreen ? 5 : 8) : 12));
+
 
     console.log(visibleMovies);
 
@@ -22,13 +23,13 @@ function MoviesCardList({ movies, widthWindow }) {
     return (
         <section className='movies-card-list' aria-label='Список фильмов'>
             <ul className='movies-card-list__container'>
-                {visibleMovieSlice.map((movie) => (
-                    <MoviesCard key={movie._id} movie={movie} smallScreen={smallScreen} />
+                {movies.slice(0, visibleMovies).map((movie, index) => (
+                    <MoviesCard key={movie.id} movie={movie} smallScreen={smallScreen} />
                 ))}
             </ul>
-
-            < More location={location.pathname} onClick={handleLoadMore} visibleMovies={visibleMovies} movies={movies} />
-
+            {visibleMovies < movies.length &&
+                < More location={location.pathname} onClick={handleLoadMore} visibleMovies={visibleMovies} movies={movies} />
+            }
         </section>
     );
 };

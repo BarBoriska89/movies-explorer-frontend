@@ -11,8 +11,9 @@ import movie10Pic from '../images/10.svg';
 import movie11Pic from '../images/11.svg';
 import movie12Pic from '../images/12.svg';
 
-export const URL_BFM=' https://api.nomoreparties.co/beatfilm-movies';
-export const BASE_URL = 'https://api.diplom-ray89.nomoredomainsicu.ru';
+export const URL_BFM=' https://api.nomoreparties.co';
+//export const BASE_URL = 'https://api.diplom-ray89.nomoredomainsicu.ru';
+export const BASE_URL = 'http://localhost:3001';
 
 export const movies = [
     {

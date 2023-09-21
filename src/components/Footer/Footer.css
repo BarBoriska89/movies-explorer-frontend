@@ -1,11 +1,13 @@
 .footer {
     background: #202020;
-    padding: 0px 70px;
+        padding: 0px 70px;
+   
 }
 
 .footer__description {
     padding-top: 79px;
     padding-bottom: 20px;
+  
     border-bottom: 1px solid #424242;
     margin-block-start: 0;
     margin-block-end: 0;
@@ -25,7 +27,7 @@
     justify-content: space-between;
     align-items: baseline;
     margin-top: 20px;
-    padding-bottom: 18px;
+       padding-bottom: 18px;
 }
 
 .footer__copyright {
@@ -65,24 +67,34 @@
 }
 
 @media screen and (max-width: 900px) {
-    .footer {
-        padding: 0px 30px;
+  .footer {
+        padding: 0px 30px;}
+/*
+    .footer__wrapper {
+        padding-left: 30px;
+        padding-right: 30px;
     }
+
+    .footer__description {
+        margin: 0 30px;
+    }*/
 
 }
 
 @media screen and (max-width: 450px) {
-    .footer {
+  .footer {
         padding: 0px 10px;
     }
 
     .footer__description {
+       
         font-size: 12px;
         padding-top: 62px;
         padding-bottom: 22px;
     }
 
     .footer__wrapper {
+      
         display: grid;
         grid-template-columns: 1fr;
         margin-top: 27px;

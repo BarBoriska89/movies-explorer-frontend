@@ -1,21 +1,17 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFormAndValidation from '../../../hooks/useFormAndValidation';
 
 function SearchForm({ onSearchMovie }) {
 
-    const [isCheckedBox, setIsCheckedBox] = useState(true);
+    const [isShortMovie, setIsShortMovie] = useState(true);
     const [inputValue, setInputValue] = useState('');
+    const [isClickSearch, setIsClickSearch] = useState(false);
+
 
     const handleChangeCheckbox = () => {
-        setIsCheckedBox(!isCheckedBox);
-        if (inputValue) {
-            onSearchMovie({ inputValue, isCheckedBox });
-        }
-        else {
-            console.log('Нужно ввести ключевое слово');
-        }
+        setIsShortMovie(!isShortMovie);
     }
 
     const handleChange = (evt) => {
@@ -25,24 +21,26 @@ function SearchForm({ onSearchMovie }) {
 
     const onSubmit = (evt) => {
         evt.preventDefault();
-        if (inputValue) {
-            onSearchMovie({ inputValue, isCheckedBox });
-        }
-        else {
-            console.log('Нужно ввести ключевое слово');
-        }
+        setIsClickSearch(true);
+        console.log(inputValue);
+        //onSearchMovie({ inputValue, isShortMovie,isClickSearch });
     }
+
+    useEffect(() => {
+        console.log(isShortMovie);
+        onSearchMovie({ inputValue, isShortMovie,isClickSearch });
+    }, [ isShortMovie, isClickSearch]);
 
     return (
         <section className='search' aria-label='Форма поиска'>
             <form className='search__container' onSubmit={onSubmit}>
                 <div className='search__form'>
                     <input id='movie-search' name='movie' className='search__input' type='text' value={inputValue || ''}
-                        placeholder='Фильм' required onChange={handleChange} />
+                        placeholder='Фильм' onChange={handleChange} autoComplete='off' />
                     <button className='button search__button' type='submit' />
                 </div>
                 <FilterCheckbox
-                    isCheckedBox={isCheckedBox}
+                    isShortMovie={isShortMovie}
                     onClick={handleChangeCheckbox}
                 />
             </form>

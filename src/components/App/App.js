@@ -13,6 +13,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { movies } from '../../utils/constants';
 import { useSavedMovies } from '../../contexts/SavedMoviesContext';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
 function App() {
 
@@ -24,15 +25,38 @@ function App() {
   console.log(savedMovies);
 
   function onLogin(user) {
-      setIsLogged(handleSignIn(user));
-    console.log(isLogged);
-    navigate('/', { replace: true });
+    console.log(user);
+    mainApi
+      .authorize(user.email, user.password)
+      .then((data) => {
+        console.log(isLogged);
+        console.log(data);
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          console.log(isLogged);
+          setIsLogged(true);
+          //          setIsLogged(handleSignIn(user));
+          console.log(isLogged);
+          navigate("/", { replace: true });
+        }
+      })
+      .then(() => console.log(isLogged))
+      .catch(err => console.log(err));
+
   }
 
-  function onRegister(user) {
-    handleSignUp(user);
-    console.log(currentUser);
-    navigate('/signin', { replace: true });
+  async function handleRegister(user) {
+    console.log(user);
+   await mainApi
+      .register(user.name, user.email, user.password)
+      .then(() => {
+      
+        // onLogin(user);
+        navigate('/movies', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function onUpdateProfile(user) {
@@ -45,9 +69,33 @@ function App() {
     navigate('/', { replace: true });
   }
 
-  function handleSearchMovie({keyWords, isCheckedBox}){
-    console.log(keyWords);
+  function handleFilterMovies({ movies, inputValue, isShortMovie }) {
+
+    console.log(isShortMovie);
+    console.log(inputValue);
+
+    let filterOnInputValue = movies.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
+        || movie.nameEN.toLowerCase().includes(inputValue.toLowerCase());
+    });
+
+    let filterShortMovies = [];
+
+    if (isShortMovie) {
+      filterShortMovies = filterOnInputValue.filter((movie) => {
+        return movie.duration <= 52;
+      });
+    }
+    if (isShortMovie) {
+      return filterShortMovies;
+    }
+    else {
+      return filterOnInputValue;
+    }
   }
+
+
+
 
   return (
     <div className="App">
@@ -68,8 +116,8 @@ function App() {
               isLogged={isLogged}
             />
             <Movies
-              movies={movies}
-              onSearchMovie={handleSearchMovie}
+              //  movies={movies}
+              onFilterMovies={handleFilterMovies}
             />
             <Footer />
           </>
@@ -82,7 +130,6 @@ function App() {
             />
             <SavedMovies
               movies={savedMovies}
-              onSearchMovie={handleSearchMovie}
             />
             <Footer />
           </>
@@ -104,7 +151,7 @@ function App() {
         <Route path='/signup' element={
           <Register
             currentUser={currentUser}
-            onRegister={onRegister}
+            onRegister={handleRegister}
           />
         } />
 
@@ -124,6 +171,6 @@ function App() {
 }
 
 document.documentElement.lang = 'ru';
-document.title='Movies Explorer';
+document.title = 'Movies Explorer';
 
 export default App;

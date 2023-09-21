@@ -49,7 +49,7 @@ function Login({ currentUser, onLogin }) {
                             title="Пароль"
                             type="password"
                             placeholder="Пароль"
-                            minLength="8"
+                            minLength="6"
                             maxLength="20"
                             onChange={handleChange}
                             value={values.password}
