@@ -1,0 +1,214 @@
+.student {
+    background: #202020;
+    padding: 0px 70px;
+}
+
+.student__title-container {
+    border-bottom: 1px solid #DADADA;
+}
+
+.student__title {
+    padding-top: 110px;
+    padding-bottom: 23px;
+    text-align: left;
+    color: #FFF;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.88px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.student__about {
+    display: grid;
+    grid-template-columns: 1fr 270px;
+    gap: 270px;
+    margin-top: 66px;
+}
+
+.student__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.student__info-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.student__subtitle {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: #FFF;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -2px;
+}
+
+.student__short-description {
+    padding-top: 19px;
+    padding-bottom: 25px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.student__description {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-align: left;
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.student__link {
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.student__photo {
+    background: url('../../../images/photo-1690741745153-636872122965.avif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-width: 270px;
+    width: 100%;
+    height: 327px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 990px) {
+    .student {
+        padding: 0px 50px;
+    }
+
+    .student__title {
+        padding-top: 91px;
+    }
+
+    .student__about {
+        grid-template-columns: 1fr 255px;
+        gap: 49px;
+    }
+
+    .student__subtitle {
+        font-size: 40px;
+        line-height: 40px;
+        letter-spacing: -1.6px;
+    }
+
+    .student__short-description {
+        font-size: 12px;
+        line-height: 18px;
+        padding-top: 16px;
+        padding-bottom: 20px;
+    }
+
+    .student__description {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .student__photo {
+        max-width: 255px;
+        max-height: 307px;
+    }
+
+}
+
+@media screen and (max-width: 645px) {
+
+    .student__about {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        justify-items: center;
+    }
+
+    .student__photo {
+        grid-row: 1;
+        max-width: 292px;
+        min-height: 352px;
+    }
+
+    .student__info {
+        gap: 40px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    .student {
+        padding: 0px 14px;
+    }
+
+    .student__title {
+        padding-top: 72px;
+        padding-bottom: 28px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
+    }
+
+    .student__about {
+        margin-top: 60px;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        justify-items: center;
+    }
+
+    .student__info-wrapper {
+        gap: 20px;
+    }
+
+    .student__subtitle {
+        font-size: 30px;
+        line-height: normal;
+        letter-spacing: -1.2px;
+    }
+
+    .student__short-description {
+        font-size: 11px;
+        line-height: 16px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .student__description {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .student__photo {
+        grid-row: 1;
+        max-width: 292px;
+        min-height: 352px;
+    }
+}

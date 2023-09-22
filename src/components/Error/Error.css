@@ -1,0 +1,13 @@
+.error {
+    padding-top: 30px;
+    margin: 0 auto;
+}
+
+.error__text {
+    text-align: center;
+    color: #EE3465;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}

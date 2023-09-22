@@ -1,0 +1,27 @@
+.header__nav-burger {
+    margin-right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header__nav-burger-button {
+    background-image: url('../../../../images/burgerButton.svg');
+    background-position: center;
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+
+
+@media screen and (max-width: 530px) {
+
+    .header__nav-burger-button {
+        min-width: 40px;
+        min-height: 43px;
+        background-size: 35px 43px;
+    }
+}
