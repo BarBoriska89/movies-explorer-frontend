@@ -45,7 +45,7 @@ function Profile({ currentUser, onUpdate , onSignOut}) {
         <main className='main'>
             <section className='profile' aria-label='Профиль пользователя'>
                 <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
-                <form className='profile__form'>
+                <form className='profile__form' onSubmit={handleSaveChanges}>
 
                     <InputForm
                         name="user"
@@ -82,7 +82,7 @@ function Profile({ currentUser, onUpdate , onSignOut}) {
                         {isEditProfile ?
                             <>
                                 <span className='profile__error'>{errors.user || errors.email}</span>
-                                <button type='submit' className='button profile__submit' disabled={!isSuccessEdit} onClick={handleSaveChanges}>Сохранить</button>
+                                <button type='submit' className='button profile__submit' disabled={!isSuccessEdit} >Сохранить</button>
                             </>
                             :
                             <>

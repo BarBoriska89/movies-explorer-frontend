@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -11,32 +12,60 @@ import Footer from '../Footer/Footer';
 import NotFound from '../NotFound/NotFound';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { movies } from '../../utils/constants';
-import { useSavedMovies } from '../../contexts/SavedMoviesContext';
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
+
+import SavedMoviesContext from '../../contexts/SavedMoviesContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [isLogged, setIsLogged] = React.useState(true);
-  const { savedMovies } = useSavedMovies();
-  const { currentUser, handleSignUp, handleSignIn, handleUpdateProfile, handleSignOut } = useCurrentUser();
-  console.log(savedMovies);
+  const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')));
+
+  //const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('filteredMovies')));
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+  const [deleteMovie, setDeleteMovie] = useState(false);
+  //console.log(savedMovies);
+
+  useEffect(() => {
+
+    if (isLogged) {
+
+      mainApi
+        .getUser()
+        .then((userData) => {
+          setCurrentUser(userData);
+        }
+        )
+        .catch((err) => console.log("Ошибка запроса данных о пользователе ", err));
+
+      mainApi
+        .getSavedMovies()
+        .then((movies) => {
+          setSavedMovies(movies);
+        })
+
+        .catch((err) => console.log("Ошибка запроса сохраненных фильмов ", err));
+    }
+  }
+    , [isLogged]);
+
+
 
   function onLogin(user) {
-    console.log(user);
+
     mainApi
       .authorize(user.email, user.password)
       .then((data) => {
-        console.log(isLogged);
-        console.log(data);
+
         if (data.token) {
           localStorage.setItem('jwt', data.token);
-          console.log(isLogged);
           setIsLogged(true);
-          //          setIsLogged(handleSignIn(user));
-          console.log(isLogged);
+          localStorage.setItem('isLogged', true);
           navigate("/", { replace: true });
         }
       })
@@ -46,12 +75,10 @@ function App() {
   }
 
   async function handleRegister(user) {
-    console.log(user);
-   await mainApi
+    await mainApi
       .register(user.name, user.email, user.password)
       .then(() => {
-      
-        // onLogin(user);
+        onLogin(user);
         navigate('/movies', { replace: true });
       })
       .catch((err) => {
@@ -60,19 +87,78 @@ function App() {
   }
 
   function onUpdateProfile(user) {
-    handleUpdateProfile(user);
-    navigate('/', { replace: true });
+
+    mainApi
+      .updateUser(user.name, user.email)
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function onSignOut() {
-    handleSignOut();
-    navigate('/', { replace: true });
+    setIsLogged(false);
+    setCurrentUser({});
+    localStorage.removeItem('isLogged');
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('search-text');
+    localStorage.removeItem('isShortMovie');
+    localStorage.removeItem('filteredMovies');
+    localStorage.removeItem('allMovies');
+    navigate('/');
+  }
+
+
+  function handleAddMovieToSaved(movie) {
+
+    mainApi
+      .addMovie(
+        movie.country,
+        movie.director,
+        movie.duration,
+        movie.year,
+        movie.description,
+        movie.image,
+        movie.trailerLink,
+        movie.id,
+        movie.nameRU,
+        movie.nameEN,
+      )
+      .then((newSavedMovie) => {
+        console.log(newSavedMovie);
+        setSavedMovies([newSavedMovie, ...savedMovies]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  function handleDeleteMovieFromSaved(movie) {
+    console.log(movie);
+    console.log(movie.id);
+    let movieForDelete;
+    if (location.pathname === '/saved-movies') {
+      movieForDelete = movie;
+    } else {
+      movieForDelete = savedMovies.find(({ movieId }) => movieId === movie.id);
+    }
+    mainApi
+      .deleteMovie(
+        movieForDelete._id
+      )
+      .then(() => {
+        const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.movieId !== movieForDelete.movieId);
+        setSavedMovies(updatedSavedMovies);
+        setDeleteMovie(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function handleFilterMovies({ movies, inputValue, isShortMovie }) {
-
-    console.log(isShortMovie);
-    console.log(inputValue);
 
     let filterOnInputValue = movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(inputValue.toLowerCase())
@@ -98,75 +184,71 @@ function App() {
 
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path='/' element={
-          <>
-            <Header
-              isLogged={isLogged}
-            />
-            <Main />
-            <Footer />
-          </>
-        } />
-
-        <Route path='/movies' element={
-          <>
-            <Header
-              isLogged={isLogged}
-            />
-            <Movies
-              //  movies={movies}
-              onFilterMovies={handleFilterMovies}
-            />
-            <Footer />
-          </>
-        } />
-
-        <Route path='/saved-movies' element={
-          <>
-            <Header
-              isLogged={isLogged}
-            />
-            <SavedMovies
-              movies={savedMovies}
-            />
-            <Footer />
-          </>
-        } />
-
-        <Route path='/profile' element={
-          <>
-            <Header
-              isLogged={isLogged}
-            />
-            <Profile
-              currentUser={currentUser}
-              onUpdate={onUpdateProfile}
-              onSignOut={onSignOut}
-            />
-          </>
-        } />
-
-        <Route path='/signup' element={
-          <Register
-            currentUser={currentUser}
-            onRegister={handleRegister}
+    <CurrentUserContext.Provider value={currentUser}>
+      <SavedMoviesContext.Provider value={savedMovies}>
+        <div className="App">
+          <Header
+            isLogged={isLogged}
           />
-        } />
+          <Routes>
+            <Route path='/' element={
+              <Main />
+            } />
 
-        <Route path='/signin' element={
-          <Login
-            currentUser={currentUser}
-            onLogin={onLogin}
-          />
-        } />
+            <Route path='/movies' element={
+              <ProtectedRoute
+                element={Movies}
+                isLogged={isLogged}
+                onFilterMovies={handleFilterMovies}
+                addMovieToSaved={handleAddMovieToSaved}
+                deleteMovieFromSaved={handleDeleteMovieFromSaved}
+                savedMovies={savedMovies}
+              />
+            } />
 
-        <Route path='*' element={
-          <NotFound />
-        } />
-      </Routes>
-    </div>
+            <Route path='/saved-movies' element={
+              <ProtectedRoute
+                element={SavedMovies}
+                movies={savedMovies}
+                isLogged={isLogged}
+                onFilterMovies={handleFilterMovies}
+                deleteMovieFromSaved={handleDeleteMovieFromSaved}
+                deleteMovie={deleteMovie}
+              />
+            } />
+
+            <Route path='/profile' element={
+              <ProtectedRoute
+                element={Profile}
+                isLogged={isLogged}
+                currentUser={currentUser}
+                onUpdate={onUpdateProfile}
+                onSignOut={onSignOut}
+              />
+            } />
+
+            <Route path='/signup' element={
+              <Register
+                currentUser={currentUser}
+                onRegister={handleRegister}
+              />
+            } />
+
+            <Route path='/signin' element={
+              <Login
+                currentUser={currentUser}
+                onLogin={onLogin}
+              />
+            } />
+
+            <Route path='*' element={
+              <NotFound />
+            } />
+          </Routes>
+          <Footer />
+        </div>
+      </SavedMoviesContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -3,33 +3,31 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useEffect, useState } from 'react';
 import useFormAndValidation from '../../../hooks/useFormAndValidation';
 
-function SearchForm({ onSearchMovie }) {
+function SearchForm({ onSearchMovie, searchTextPrevious, isShortMoviePrevious }) {
 
-    const [isShortMovie, setIsShortMovie] = useState(true);
-    const [inputValue, setInputValue] = useState('');
+    const [isShortMovie, setIsShortMovie] = useState(isShortMoviePrevious);
+    const [inputValue, setInputValue] = useState(searchTextPrevious || '');
     const [isClickSearch, setIsClickSearch] = useState(false);
-
 
     const handleChangeCheckbox = () => {
         setIsShortMovie(!isShortMovie);
     }
 
     const handleChange = (evt) => {
+       
         setInputValue(evt.target.value);
     }
-
 
     const onSubmit = (evt) => {
         evt.preventDefault();
         setIsClickSearch(true);
-        console.log(inputValue);
-        //onSearchMovie({ inputValue, isShortMovie,isClickSearch });
+        onSearchMovie({ inputValue, isShortMovie, isClickSearch });
     }
 
     useEffect(() => {
-        console.log(isShortMovie);
-        onSearchMovie({ inputValue, isShortMovie,isClickSearch });
-    }, [ isShortMovie, isClickSearch]);
+
+        onSearchMovie({ inputValue, isShortMovie, isClickSearch });
+    }, [isShortMovie]);
 
     return (
         <section className='search' aria-label='Форма поиска'>

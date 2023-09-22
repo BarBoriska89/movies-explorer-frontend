@@ -11,9 +11,12 @@ function BurgerMenu({ handleClose }) {
             <button className='button header__nav-burger-close' type="button" onClick={handleClose} />
             <nav className='header__nav-burger-links'>
                 <ul className="header__nav-burger-links-list">
-                    <li><Link to="/" className={`link header__nav-burger-link ${location.pathname === '/' ? 'header__nav-burger-link_active' : ''}`} onClick={handleClose} >Главная</Link></li>
-                    <li><Link to="/movies" className={`link header__nav-burger-link ${location.pathname === '/movies' ? 'header__nav-burger-link_active' : ''}`} onClick={handleClose} >Фильмы</Link></li>
-                    <li><Link to="/saved-movies" className={`link header__nav-burger-link ${location.pathname === '/saved-movies' ? 'header__nav-burger-link_active' : ''}`} onClick={handleClose}>Сохранённые фильмы</Link></li>
+                    <li><Link to="/" className={`link header__nav-burger-link ${location.pathname === '/' ? 'header__nav-burger-link_active' : ''}`}
+                    >Главная</Link></li>
+                    <li><Link to="/movies" className={`link header__nav-burger-link ${location.pathname === '/movies' ? 'header__nav-burger-link_active' : ''}`}
+                    >Фильмы</Link></li>
+                    <li><Link to="/saved-movies" className={`link header__nav-burger-link ${location.pathname === '/saved-movies' ? 'header__nav-burger-link_active' : ''}`}
+                    >Сохранённые фильмы</Link></li>
                 </ul>
                 <Link to="/profile" className="link header__nav-burger-link header__nav-burger-link-account">
                     <span className="header__nav-burger-account">Аккаунт</span>

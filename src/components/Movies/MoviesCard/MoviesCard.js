@@ -1,22 +1,24 @@
 import './MoviesCard.css';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useSavedMovies } from '../../../contexts/SavedMoviesContext';
+import { useEffect, useState } from 'react';
+import SavedMoviesContext from '../../../contexts/SavedMoviesContext';
 import { URL_BFM } from '../../../utils/constants';
+import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ movie, smallScreen }) {
-
-    console.log(movie);
-    console.log(movie.nameRU);
-    console.log(movie.nameEN);
-    console.log(movie.duration);
-    console.log(movie.trailerLink);
-    console.log(movie.image.url);
-    const [isLiked, setIsLiked] = useState(false);
-    const { addMovieToSaved, deleteMovieFromSaved } = useSavedMovies();
+function MoviesCard({ movie, smallScreen, addMovieToSaved, deleteMovieFromSaved, savedMovies, }) {
 
     const location = useLocation();
-    console.log(location.pathname);
+    let imagePath;
+
+    location.pathname==='/movies' ?  imagePath = `${URL_BFM}/${movie.image.url}`: imagePath = movie.image;
+
+    const [isLiked, setIsLiked] = useState(false);
+    console.log(movie);
+
+    useEffect(() => {
+        const isThisMovieSaved = savedMovies.some(({ movieId }) => movieId === movie.id);
+        setIsLiked(isThisMovieSaved);
+    }, [savedMovies, movie]);
+
 
     const durationMovie = `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}мин`;
 
@@ -39,7 +41,7 @@ function MoviesCard({ movie, smallScreen }) {
     return (
         <li className='movies-card'>
             <a href={movie.trailerLink} className='movie-card__link' target='_blank' rel="noreferrer">
-                <img className='movies-card__img' src={`${URL_BFM}/${movie.image.url}`} alt={movie.nameRU} />
+                <img className='movies-card__img' src={imagePath} alt={movie.nameRU} />
             </a>
             <div className='movies-card__caption'>
                 <div className='movies-card__info'>
@@ -50,7 +52,8 @@ function MoviesCard({ movie, smallScreen }) {
                     <button className={likeButtonClass} type='button' aria-label='Нравится' onClick={handleCardLike} />
                     :
                     <div className='movies-card__delete-container'>
-                        <button className={`button movies-card__delete ${smallScreen ? 'movies-card__delete_visible' : ''}`} type='button' aria-label='Удалить из сохраненных' onClick={handleDeleteMovie} />
+                        <button className={`button movies-card__delete ${smallScreen ? 'movies-card__delete_visible' : ''}`} type='button' aria-label='Удалить из сохраненных'
+                         onClick={handleDeleteMovie} />
                     </div>
                 }
             </div>
