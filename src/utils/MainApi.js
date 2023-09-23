@@ -26,16 +26,13 @@ class MainApi {
             .then((res) => this._checkResponse(res));
     }
 
-
     _getToken() {
         const jwt = localStorage.getItem('jwt');
-        console.log(jwt);
         return {
             Authorization: `Bearer ${jwt}`,
             ...this._mainHeaders,
         };
     }
-
 
     authorize(email, password) {
         return fetch(`${BASE_URL}/signin`, {
@@ -45,7 +42,6 @@ class MainApi {
         })
             .then((res) => this._checkResponse(res));
     }
-
 
     getUser() {
         return fetch(`${BASE_URL}/users/me`, {
@@ -65,7 +61,6 @@ class MainApi {
         })
             .then((res) => this._checkResponse(res));
     }
-
 
     addMovie(
         country,
@@ -108,15 +103,12 @@ class MainApi {
             .then((res) => this._checkResponse(res));
     }
 
-
     getSavedMovies() {
         return fetch(`${BASE_URL}/movies`, {
             headers: this._getToken(),
         })
-        .then((res) => this._checkResponse(res));
+            .then((res) => this._checkResponse(res));
     }
-
-
 }
 
 const mainApi = new MainApi(optionsMainApi);

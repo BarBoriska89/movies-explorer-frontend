@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import './Movies.css';
-import SearchForm from './SearchForm/SearchForm';
-import Preloader from '../Movies/Preloader/Preloader';
+import SearchForm from '../SearchForm/SearchForm';
+import Preloader from '../Preloader/Preloader';
 import Error from "../Error/Error";
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SizeTracker from "../SizeTracker/SizeTracker";
 import moviesApi from "../../utils/MoviesApi";
-import mainApi from "../../utils/MainApi";
 
-
-
-function Movies({ onFilterMovies, addMovieToSaved , deleteMovieFromSaved, savedMovies}) {
+function Movies({ onFilterMovies, addMovieToSaved, deleteMovieFromSaved, savedMovies }) {
 
     const searchMoviesPrevious = (JSON.parse(localStorage.getItem('filteredMovies'))) || [];
     const searchTextPrevious = localStorage.getItem('search-text') || '';
@@ -21,12 +18,10 @@ function Movies({ onFilterMovies, addMovieToSaved , deleteMovieFromSaved, savedM
     const [isLoadedInfo, setIsLoadedInfo] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
 
-
     function handleSearchMovie({ inputValue, isShortMovie, isClickSearch, }) {
 
         setErrorMessage(null);
-        setIsLoadedInfo(false);
-        //error
+
         if (isClickSearch && inputValue === '') {
 
             setErrorMessage('Нужно ввести ключевое слово');
@@ -34,25 +29,31 @@ function Movies({ onFilterMovies, addMovieToSaved , deleteMovieFromSaved, savedM
             return;
         }
 
+        if (inputValue !== '') {
+            setIsLoadedInfo(false);
 
-        moviesApi
-            .getMovies()
-            .then((movies) => {
-                localStorage.setItem('allMovies', JSON.stringify(movies));
-                localStorage.setItem('search-text', inputValue);
-                localStorage.setItem('isShortMovie', isShortMovie);
-                const filteredMovies = onFilterMovies({ movies, inputValue, isShortMovie });
-                localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-                setSearchMovies(filteredMovies);
-                setIsLoadedInfo(true);
-            })
-            .catch((error) => {
-                setErrorMessage('Опаньки!');
-                console.error(error);
-            })
+            moviesApi
+                .getMovies()
+                .then((movies) => {
+                    localStorage.setItem('allMovies', JSON.stringify(movies));
+                    localStorage.setItem('search-text', inputValue);
+                    localStorage.setItem('isShortMovie', isShortMovie);
+                    const filteredMovies = onFilterMovies({ movies, inputValue, isShortMovie });
+                    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+                    setSearchMovies(filteredMovies);
+                    setIsLoadedInfo(true);
+                    if (filteredMovies.length === 0) {
+                        setErrorMessage('Ничего не найдено');
+                    }
+
+                })
+                .catch((error) => {
+                    setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.');
+                })
+        }
     }
     return (
-        <main>
+        <main className='main'>
             <section className="movies" aria-label="Фильмы">
                 <SearchForm
                     onSearchMovie={handleSearchMovie}

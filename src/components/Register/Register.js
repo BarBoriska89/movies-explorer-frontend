@@ -1,11 +1,9 @@
 import './Register.css';
-import { Link } from 'react-router-dom';
-import logoPicPath from '../../../images/logo.png';
-import InputForm from '../../InputForm/InputForm';
-import Form from '../../Form/Form';
-import useFormAndValidation from '../../../hooks/useFormAndValidation';
+import InputForm from '../InputForm/InputForm';
+import Form from '../Form/Form';
+import useFormAndValidation from '../../hooks/useFormAndValidation';
 
-function Register({ currentUser, onRegister }) {
+function Register({ currentUser, onRegister, requestError }) {
 
     const { values, handleChange, errors, isValid, } = useFormAndValidation({});
 
@@ -16,7 +14,6 @@ function Register({ currentUser, onRegister }) {
             email: values.email,
             password: values.password
         });
-        
     }
 
     return (
@@ -24,12 +21,15 @@ function Register({ currentUser, onRegister }) {
             <div className='auth'>
                 <section className='auth__register' aria-label='Регистрация и авторизация'>
                     <Form
+                        formName='register'
                         greetings='Добро пожаловать!'
                         buttonText='Зарегистрироваться'
                         linkQuestion='Уже зарегистрированы?'
                         linkTitle='Войти'
                         linkPath='/signin'
                         onSubmit={onSubmit}
+                        isValid={isValid}
+                        error={requestError}
                     >
                         <InputForm
                             name="user"
@@ -72,12 +72,13 @@ function Register({ currentUser, onRegister }) {
                             onChange={handleChange}
                             value={values.password}
                             errors={errors.password}
+                            isValid={isValid}
                             user={currentUser}
                         />
                     </Form>
                 </section>
             </div>
-        </main>
+        </main >
     );
 };
 

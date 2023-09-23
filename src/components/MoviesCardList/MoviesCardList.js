@@ -8,7 +8,6 @@ function MoviesCardList({ movies, widthWindow, addMovieToSaved, deleteMovieFromS
 
     const location = useLocation();
 
-
     const smallScreen = widthWindow <= 767;
     const mediumScreen = widthWindow <= 1279;
 
@@ -16,7 +15,6 @@ function MoviesCardList({ movies, widthWindow, addMovieToSaved, deleteMovieFromS
     const [visibleMovies, setVisibleMovies] = useState((mediumScreen ? (smallScreen ? 5 : 8) : 12));
 
     const visibleMoviesData = movies.slice(0, visibleMovies);
-    console.log(visibleMovies);
 
     const handleLoadMore = () => {
         setVisibleMovies(visibleMovies + step);

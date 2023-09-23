@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
 import './Profile.css';
-import useFormAndValidation from '../../../hooks/useFormAndValidation';
-import InputForm from '../../InputForm/InputForm';
-import { useCurrentUser } from '../../../contexts/CurrentUserContext';
+import useFormAndValidation from '../../hooks/useFormAndValidation';
+import InputForm from '../InputForm/InputForm';
 
-function Profile({ currentUser, onUpdate , onSignOut}) {
+function Profile({ currentUser, onUpdate, onSignOut, requestError, resetRequestError }) {
 
-    //const { currentUser, handleUpdateProfile, } = useCurrentUser();
-    const { values, handleChange, errors, isValid, setValues } = useFormAndValidation({});
-
-    console.log(currentUser);
-
+    const { values, handleChange, errors, isValid, setValues, setIsValid } = useFormAndValidation({});
     const [isEditProfile, setIsEditProfile] = useState(false);
-    const [isSuccessEdit, setIsSuccessEdit] = useState(true);
-
 
     const handleEditProfile = (evt) => {
         evt.preventDefault();
@@ -24,7 +17,6 @@ function Profile({ currentUser, onUpdate , onSignOut}) {
         evt.preventDefault();
 
         if (isValid === true) {
-            setIsSuccessEdit(false);
             onUpdate({
                 name: values.user,
                 email: values.email
@@ -32,14 +24,20 @@ function Profile({ currentUser, onUpdate , onSignOut}) {
         }
     }
 
-   
     useEffect(() => {
         setValues({
             user: currentUser.name,
             email: currentUser.email
-        })
-    }, [])
+        });
+        resetRequestError();
+    },
+        [])
 
+    useEffect(() => {
+        if (values.user === currentUser.name && values.email === currentUser.email) {
+            setIsValid(false);
+        }
+    }, [values]);
 
     return (
         <main className='main'>
@@ -62,7 +60,6 @@ function Profile({ currentUser, onUpdate , onSignOut}) {
                         isEditProfile={isEditProfile}
                     />
 
-
                     <InputForm
                         name="email"
                         id="email"
@@ -81,13 +78,13 @@ function Profile({ currentUser, onUpdate , onSignOut}) {
                     <div className='profile__buttons-container'>
                         {isEditProfile ?
                             <>
-                                <span className='profile__error'>{errors.user || errors.email}</span>
-                                <button type='submit' className='button profile__submit' disabled={!isSuccessEdit} >Сохранить</button>
+                                <span className='profile__error-submit'>{requestError}</span>
+                                <button type='submit' className='button profile__submit' disabled={!isValid} >Сохранить</button>
                             </>
                             :
                             <>
                                 <button type='button' className='link profile__button' onClick={handleEditProfile}>Редактировать</button>
-                                <button type='button' className='link profile__button profile__button-exit'onClick={onSignOut}>Выйти из аккаунта</button>
+                                <button type='button' className='link profile__button profile__button-exit' onClick={onSignOut}>Выйти из аккаунта</button>
                             </>
                         }
                     </div>

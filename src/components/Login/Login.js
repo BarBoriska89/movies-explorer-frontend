@@ -1,9 +1,9 @@
 import './Login.css';
-import Form from '../../Form/Form';
-import InputForm from '../../InputForm/InputForm';
-import useFormAndValidation from '../../../hooks/useFormAndValidation';
+import Form from '../Form/Form';
+import InputForm from '../InputForm/InputForm';
+import useFormAndValidation from '../../hooks/useFormAndValidation';
 
-function Login({ currentUser, onLogin }) {
+function Login({ currentUser, onLogin, requestError }) {
 
     const { values, handleChange, errors, isValid, } = useFormAndValidation({});
 
@@ -20,12 +20,15 @@ function Login({ currentUser, onLogin }) {
             <div className='auth'>
                 <section className='auth__login' aria-label='Регистрация и авторизация'>
                     <Form
+                        formName='login'
                         greetings='Рады видеть!'
                         buttonText='Войти'
                         linkQuestion='Ещё не зарегистрированы?'
                         linkTitle='Регистрация'
                         linkPath='/signup'
                         onSubmit={onSubmit}
+                        isValid={isValid}
+                        error={requestError}
                     >
 
                         <InputForm

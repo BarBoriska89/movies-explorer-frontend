@@ -34,7 +34,7 @@
 }
 
 .search__button {
-    background-image: url('../../../images/find.svg');
+    background-image: url('../../images/find.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: transparent;

@@ -5,14 +5,12 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
-import Profile from '../Auth/Profile/Profile';
-import Login from '../Auth/Login/Login';
-import Register from '../Auth/Register/Register';
+import Profile from '../Profile/Profile';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 import Footer from '../Footer/Footer';
 import NotFound from '../NotFound/NotFound';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { movies } from '../../utils/constants';
-
 import SavedMoviesContext from '../../contexts/SavedMoviesContext';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
@@ -25,14 +23,14 @@ function App() {
 
   const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')));
 
-  //const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('filteredMovies')));
   const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [deleteMovie, setDeleteMovie] = useState(false);
-  //console.log(savedMovies);
+  const [requestError, setRequestError] = useState('');
+
 
   useEffect(() => {
-
+    setRequestError('');
     if (isLogged) {
 
       mainApi
@@ -41,7 +39,8 @@ function App() {
           setCurrentUser(userData);
         }
         )
-        .catch((err) => console.log("Ошибка запроса данных о пользователе ", err));
+        .catch((err) =>
+          console.log("На сервере произошла ошибка. ", err));
 
       mainApi
         .getSavedMovies()
@@ -49,12 +48,14 @@ function App() {
           setSavedMovies(movies);
         })
 
-        .catch((err) => console.log("Ошибка запроса сохраненных фильмов ", err));
+        .catch((err) => console.log("На сервере произошла ошибка.", err));
     }
   }
     , [isLogged]);
 
-
+  function resetRequestError() {
+    setRequestError('');
+  }
 
   function onLogin(user) {
 
@@ -66,23 +67,32 @@ function App() {
           localStorage.setItem('jwt', data.token);
           setIsLogged(true);
           localStorage.setItem('isLogged', true);
-          navigate("/", { replace: true });
+          navigate("/movies", { replace: true });
         }
       })
-      .then(() => console.log(isLogged))
-      .catch(err => console.log(err));
+      .catch(err => {
+        if (err === 'Ошибка: 401') {
+          setRequestError('Вы ввели неправильный логин или пароль.');
+        } else {
+          setRequestError('При авторизации произошла ошибка. Токен не передан или передан не в том формате.');
+        }
+      })
+  };
 
-  }
+
 
   async function handleRegister(user) {
     await mainApi
       .register(user.name, user.email, user.password)
       .then(() => {
         onLogin(user);
-        navigate('/movies', { replace: true });
       })
       .catch((err) => {
-        console.log(err);
+        if (err === 'Ошибка: 409') {
+          setRequestError('Пользователь с таким email уже существует.');
+        } else {
+          setRequestError('При регистрации пользователя произошла ошибка.');
+        }
       });
   }
 
@@ -92,10 +102,15 @@ function App() {
       .updateUser(user.name, user.email)
       .then((data) => {
         setCurrentUser(data);
+        setRequestError('Редактирование данных пользователя завершено успешно');
       })
       .catch((err) => {
-        console.log(err);
-      })
+        if (err === 'Ошибка: 409') {
+          setRequestError('Пользователь с таким email уже существует.');
+        } else {
+          setRequestError('При обновлении профиля произошла ошибка.');
+        }
+      });
   }
 
   function onSignOut() {
@@ -127,7 +142,6 @@ function App() {
         movie.nameEN,
       )
       .then((newSavedMovie) => {
-        console.log(newSavedMovie);
         setSavedMovies([newSavedMovie, ...savedMovies]);
       })
       .catch((err) => {
@@ -136,8 +150,6 @@ function App() {
   }
 
   function handleDeleteMovieFromSaved(movie) {
-    console.log(movie);
-    console.log(movie.id);
     let movieForDelete;
     if (location.pathname === '/saved-movies') {
       movieForDelete = movie;
@@ -224,6 +236,8 @@ function App() {
                 currentUser={currentUser}
                 onUpdate={onUpdateProfile}
                 onSignOut={onSignOut}
+                requestError={requestError}
+                resetRequestError={resetRequestError}
               />
             } />
 
@@ -231,6 +245,7 @@ function App() {
               <Register
                 currentUser={currentUser}
                 onRegister={handleRegister}
+                requestError={requestError}
               />
             } />
 
@@ -238,6 +253,7 @@ function App() {
               <Login
                 currentUser={currentUser}
                 onLogin={onLogin}
+                requestError={requestError}
               />
             } />
 

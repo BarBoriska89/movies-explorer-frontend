@@ -1,7 +1,6 @@
 import './MoviesCard.css';
 import { useEffect, useState } from 'react';
-import SavedMoviesContext from '../../../contexts/SavedMoviesContext';
-import { URL_BFM } from '../../../utils/constants';
+import { URL_BFM } from '../../utils/constants';
 import { useLocation } from 'react-router-dom';
 
 function MoviesCard({ movie, smallScreen, addMovieToSaved, deleteMovieFromSaved, savedMovies, }) {
@@ -9,16 +8,14 @@ function MoviesCard({ movie, smallScreen, addMovieToSaved, deleteMovieFromSaved,
     const location = useLocation();
     let imagePath;
 
-    location.pathname==='/movies' ?  imagePath = `${URL_BFM}/${movie.image.url}`: imagePath = movie.image;
+    location.pathname === '/movies' ? imagePath = `${URL_BFM}/${movie.image.url}` : imagePath = movie.image;
 
     const [isLiked, setIsLiked] = useState(false);
-    console.log(movie);
 
     useEffect(() => {
         const isThisMovieSaved = savedMovies.some(({ movieId }) => movieId === movie.id);
         setIsLiked(isThisMovieSaved);
     }, [savedMovies, movie]);
-
 
     const durationMovie = `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}мин`;
 
@@ -53,7 +50,7 @@ function MoviesCard({ movie, smallScreen, addMovieToSaved, deleteMovieFromSaved,
                     :
                     <div className='movies-card__delete-container'>
                         <button className={`button movies-card__delete ${smallScreen ? 'movies-card__delete_visible' : ''}`} type='button' aria-label='Удалить из сохраненных'
-                         onClick={handleDeleteMovie} />
+                            onClick={handleDeleteMovie} />
                     </div>
                 }
             </div>

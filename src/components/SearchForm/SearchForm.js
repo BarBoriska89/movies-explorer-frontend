@@ -1,9 +1,8 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useEffect, useState } from 'react';
-import useFormAndValidation from '../../../hooks/useFormAndValidation';
 
-function SearchForm({ onSearchMovie, searchTextPrevious, isShortMoviePrevious }) {
+function SearchForm({ onSearchMovie, searchTextPrevious, isShortMoviePrevious, movies }) {
 
     const [isShortMovie, setIsShortMovie] = useState(isShortMoviePrevious);
     const [inputValue, setInputValue] = useState(searchTextPrevious || '');
@@ -14,7 +13,7 @@ function SearchForm({ onSearchMovie, searchTextPrevious, isShortMoviePrevious })
     }
 
     const handleChange = (evt) => {
-       
+
         setInputValue(evt.target.value);
     }
 
@@ -27,7 +26,7 @@ function SearchForm({ onSearchMovie, searchTextPrevious, isShortMoviePrevious })
     useEffect(() => {
 
         onSearchMovie({ inputValue, isShortMovie, isClickSearch });
-    }, [isShortMovie]);
+    }, [isShortMovie, movies, isClickSearch]);
 
     return (
         <section className='search' aria-label='Форма поиска'>

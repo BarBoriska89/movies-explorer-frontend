@@ -10,20 +10,28 @@ function Header(props) {
     let location = useLocation();
     const widthWindow = SizeTracker();
 
-        console.log(location.pathname);
-
     return (
-        <header className={`header ${(location.pathname === '/') ? '' : 'header_dark' }`}>
-            <Link to="/" className="link header__logo">
-                <img src={logoPicPath} className="header__logo-pic" alt="Логотип сервиса" />
-            </Link>
 
-            <Navigation 
-            isLogged={props.isLogged}
-            widthWindow={widthWindow}
-            />
+        location.pathname !== '/signup' && location.pathname !== '/signin' ?
+            <header className={`header ${(location.pathname === '/') ? '' : 'header_dark'}`}>
+                <Link to="/" className="link header__logo">
+                    <img src={logoPicPath} className="header__logo-pic" alt="Логотип сервиса" />
+                </Link>
 
-        </header>
+                <Navigation
+                    isLogged={props.isLogged}
+                    widthWindow={widthWindow}
+                />
+
+            </header>
+            :
+            <header className=" header header__auth header_dark">
+                <Link to="/" className="link auth__logo">
+                    <img src={logoPicPath} className="auth__logo-pic" alt="Логотип сервиса" />
+                </Link>
+            </header>
+
+
     );
 }
 

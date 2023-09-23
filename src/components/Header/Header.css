@@ -1,16 +1,21 @@
 .header {
     background-color: #073042;
-    margin: 0 ;
+    margin: 0;
     padding: 0 70px;
     height: 74px;
     display: flex;
-    /*width: calc(100%-140px);*/
-    flex-direction: row;
+       flex-direction: row;
     align-items: center;
 }
 
 .header_dark {
     background-color: #202020;
+}
+
+.header__auth {
+    padding: 72px 0 2px 0;
+    margin: 0 auto;
+    min-width: 396px;
 }
 
 .header__logo {
@@ -116,6 +121,12 @@
     .header {
         padding: 0 30px;
     }
+
+    .header__auth {
+        padding: 234px 0 2px 0;
+        margin: 0 auto;
+        min-width: 396px;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -123,6 +134,13 @@
         padding: 0 14px;
     }
 
+    .header__auth {
+        padding: 35px 0;
+        margin: 0 auto;
+        min-width: 320px;
+        align-items: center;
+        justify-content: center;
+    }
 
     .header__nav-link {
 

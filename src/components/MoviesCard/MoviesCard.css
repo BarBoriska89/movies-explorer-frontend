@@ -65,7 +65,7 @@
 
 .movies-card__like {
     background-color: #222;
-    background-image: url(./../../../images/like-disactive.svg);
+    background-image: url(../../images/like-disactive.svg);
     border: none;
     background-repeat: no-repeat;
     min-width: 30px;
@@ -83,7 +83,7 @@
 }
 
 .movies-card__like_active {
-    background-image: url(./../../../images/like-active.svg);
+    background-image: url(../../images/like-active.svg);
 }
 
 .movies-card__caption:hover .movies-card__delete {
@@ -94,7 +94,7 @@
     cursor: pointer;
     padding: 0;
     background-color: transparent;
-    background-image: url(./../../../images/delete.svg);
+    background-image: url(../../images/delete.svg);
     background-size: 6.835px 6.718px;
     background-position: center center;
     border: none;
@@ -176,7 +176,7 @@
         cursor: pointer;
         padding: 0;
         background-color: transparent;
-        background-image: url(./../../../images/delete.svg);
+        background-image: url(../../images/delete.svg);
         background-size: 6.835px 6.718px;
         background-position: center center;
         border: none;

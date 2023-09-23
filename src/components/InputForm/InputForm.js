@@ -7,11 +7,13 @@ function InputForm(props) {
 
     return (
         location.pathname === '/profile' ?
-            <div className='profile__input-container'>
-                <label className='profile__label'>{props.title}</label>
-                <input type={props.type} value={props.value || ''} className="profile__input" placeholder={props.placeholder} name={props.name}
-                    id={props.id} minLength={props.minLength} maxLength={props.maxLength} required autoComplete="off" onChange={props.onChange} disabled={!props.isEditProfile} />
-
+            <div className='profile__input-wrapper'>
+                <div className='profile__input-container'>
+                    <label className='profile__label'>{props.title}</label>
+                    <input type={props.type} value={props.value || ''} className="profile__input" placeholder={props.placeholder} name={props.name}
+                        id={props.id} minLength={props.minLength} maxLength={props.maxLength} required autoComplete="off" onChange={props.onChange} disabled={!props.isEditProfile} />
+                </div>
+                <span className="profile__error" id={`profile-${props.id}-error`}>{props.errors}</span>
             </div>
             :
             <div className="auth__form-section">

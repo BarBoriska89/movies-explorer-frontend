@@ -6,7 +6,6 @@ import './NotFound.css';
 function NotFound() {
     const navigate = useNavigate();
 
-    console.log(navigate);
     const handleReturnBack = () => {
         navigate(-1);
     };

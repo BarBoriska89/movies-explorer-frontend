@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import accountPicPath from '../../images/icon__account.svg';
 import '../Header/Header.css';
-import SizeTracker from "../SizeTracker/SizeTracker";
 import BurgerMenuButton from "../Header/BurgerMenu/BurgerMenuButton/BurgerMenuButton";
 import BurgerMenu from "../Header/BurgerMenu/BurgerMenu";
 
 function Navigation({ isLogged, widthWindow }) {
-    console.log(widthWindow);
-
     const isSmallScreen = widthWindow <= 900;
-    console.log(isSmallScreen);
-    console.log(isLogged);
 
     const location = useLocation();
 
     const [isOpened, setIsOpened] = useState(false);
-
-    console.log(isOpened);
 
     function handleOpen() {
         setIsOpened(!isOpened);
@@ -45,7 +38,7 @@ function Navigation({ isLogged, widthWindow }) {
                     {isLogged && isSmallScreen ?
                         <>  {
                             isOpened ?
-                                <BurgerMenu handleClose={handleOpen} />
+                                <BurgerMenu handleClose={handleOpen} isOpened={isOpened} />
                                 :
                                 <BurgerMenuButton handleOpen={handleOpen} isOpened={isOpened} />
                         }

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import './Portfolio.css';
 
 function Portfolio() {
@@ -26,7 +25,6 @@ function Portfolio() {
                     </a>
                 </li>
             </ul>
-
         </section>
     );
 };
