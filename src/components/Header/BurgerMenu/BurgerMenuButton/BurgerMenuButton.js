@@ -1,3 +1,4 @@
+import React from 'react';
 import './BurgerMenuButton.css';
 
 function BurgerMenuButton({ handleOpen }) {

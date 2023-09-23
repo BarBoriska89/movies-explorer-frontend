@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import './Profile.css';
 import useFormAndValidation from '../../hooks/useFormAndValidation';

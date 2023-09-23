@@ -1,3 +1,4 @@
+import React from 'react';
 import './Register.css';
 import InputForm from '../InputForm/InputForm';
 import Form from '../Form/Form';

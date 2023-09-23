@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import React from 'react';
+import { createContext } from "react";
 
 const SavedMoviesContext = createContext();
 

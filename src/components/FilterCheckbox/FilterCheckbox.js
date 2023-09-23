@@ -1,3 +1,4 @@
+import React from 'react';
 import './FilterCheckbox.css';
 import checkboxOnPath from '../../images/smalltumb.svg';
 import checkboxOffPath from '../../images/smalltumboff.svg';

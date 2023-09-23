@@ -1,3 +1,4 @@
+import React from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useEffect, useState } from 'react';

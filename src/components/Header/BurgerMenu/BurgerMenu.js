@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './BurgerMenu.css';
 import accountPicPath from '../../../images/icon__account.svg';
