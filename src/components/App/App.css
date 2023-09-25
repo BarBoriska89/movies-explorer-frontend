@@ -11,4 +11,9 @@
 
 .main {
   flex-grow: 1;
+
+}
+
+nav .active{
+  font-weight: 500;
 }

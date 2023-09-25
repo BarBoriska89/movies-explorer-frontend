@@ -12,7 +12,7 @@ function InputForm(props) {
                 <div className='profile__input-container'>
                     <label className='profile__label'>{props.title}</label>
                     <input type={props.type} value={props.value || ''} className="profile__input" placeholder={props.placeholder} name={props.name}
-                        id={props.id} minLength={props.minLength} maxLength={props.maxLength} required autoComplete="off" onChange={props.onChange} disabled={!props.isEditProfile} />
+                        id={props.id} minLength={props.minLength} maxLength={props.maxLength} pattern={props.pattern ?? null} required autoComplete="off" onChange={props.onChange} disabled={!props.isEditProfile} />
                 </div>
                 <span className="profile__error" id={`profile-${props.id}-error`}>{props.errors}</span>
             </div>
@@ -20,7 +20,7 @@ function InputForm(props) {
             <div className="auth__form-section">
                 <label className='auth__input-title'>{props.title}</label>
                 <input type={props.type} value={props.value || ''} className="auth__input auth__input_type_name" placeholder={props.placeholder} name={props.name}
-                    id={props.id} minLength={props.minLength} maxLength={props.maxLength} required autoComplete="off" onChange={props.onChange} />
+                    id={props.id} minLength={props.minLength} maxLength={props.maxLength} pattern={props.pattern ?? null} required autoComplete="off" onChange={props.onChange} />
                 <span className="auth__error" id={`user-${props.id}-error`}>{props.errors}</span>
             </div>
 

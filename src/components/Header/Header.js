@@ -11,25 +11,28 @@ function Header(props) {
     const widthWindow = SizeTracker();
 
     return (
-
-        location.pathname !== '/signup' && location.pathname !== '/signin' ?
-            <header className={`header ${(location.pathname === '/') ? '' : 'header_dark'}`}>
-                <Link to="/" className="link header__logo">
-                    <img src={logoPicPath} className="header__logo-pic" alt="Логотип сервиса" />
-                </Link>
-
-                <Navigation
-                    isLogged={props.isLogged}
-                    widthWindow={widthWindow}
-                />
-
-            </header>
+        location.pathname !== '/signup' && location.pathname !== '/signin' && location.pathname !== '/movies' && location.pathname !== '/saved-movies' && location.pathname !== '/profile' && location.pathname !=='/' ?
+            null
             :
-            <header className=" header header__auth header_dark">
-                <Link to="/" className="link auth__logo">
-                    <img src={logoPicPath} className="auth__logo-pic" alt="Логотип сервиса" />
-                </Link>
-            </header>
+
+            location.pathname !== '/signup' && location.pathname !== '/signin' ?
+                <header className={`header ${(location.pathname === '/') ? '' : 'header_dark'}`}>
+                    <Link to="/" className="link header__logo">
+                        <img src={logoPicPath} className="header__logo-pic" alt="Логотип сервиса" />
+                    </Link>
+
+                    <Navigation
+                        isLogged={props.isLogged}
+                        widthWindow={widthWindow}
+                    />
+
+                </header>
+                :
+                <header className=" header header__auth header_dark">
+                    <Link to="/" className="link auth__logo">
+                        <img src={logoPicPath} className="auth__logo-pic" alt="Логотип сервиса" />
+                    </Link>
+                </header>
 
 
     );

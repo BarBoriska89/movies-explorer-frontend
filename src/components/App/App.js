@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -15,6 +15,7 @@ import SavedMoviesContext from '../../contexts/SavedMoviesContext';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { SHOT_MOVIE_MAX_DURATION } from '../../utils/constants';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
   const location = useLocation();
 
   const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')));
-
+  const jwt = localStorage.getItem('jwt');
   const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [deleteMovie, setDeleteMovie] = useState(false);
@@ -31,7 +32,7 @@ function App() {
 
   useEffect(() => {
     setRequestError('');
-    if (isLogged) {
+    if (isLogged && jwt !== null) {
 
       mainApi
         .getUser()
@@ -49,9 +50,37 @@ function App() {
         })
 
         .catch((err) => console.log("На сервере произошла ошибка.", err));
+    } else {
+      localStorage.clear();
     }
   }
     , [isLogged]);
+
+  useEffect(() => {
+    handleTokenCheck();
+  }
+    , []);
+
+  useEffect(() => {
+    setRequestError('');
+  }, [location.pathname]);
+
+
+  function handleTokenCheck() {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      mainApi.getContent(jwt)
+        .then((res) => {
+          setIsLogged(true);
+          setCurrentUser(res);
+        })
+        .catch((err) => {
+          setRequestError('При авторизации произошла ошибка. Переданный токен некорректен.');
+          console.log(err);
+          onSignOut();
+        });
+    }
+  }
 
   function resetRequestError() {
     setRequestError('');
@@ -108,6 +137,7 @@ function App() {
         if (err === 'Ошибка: 409') {
           setRequestError('Пользователь с таким email уже существует.');
         } else {
+          console.log(err);
           setRequestError('При обновлении профиля произошла ошибка.');
         }
       });
@@ -116,12 +146,7 @@ function App() {
   function onSignOut() {
     setIsLogged(false);
     setCurrentUser({});
-    localStorage.removeItem('isLogged');
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('search-text');
-    localStorage.removeItem('isShortMovie');
-    localStorage.removeItem('filteredMovies');
-    localStorage.removeItem('allMovies');
+    localStorage.clear();
     navigate('/');
   }
 
@@ -181,7 +206,7 @@ function App() {
 
     if (isShortMovie) {
       filterShortMovies = filterOnInputValue.filter((movie) => {
-        return movie.duration <= 52;
+        return movie.duration <= SHOT_MOVIE_MAX_DURATION;
       });
     }
     if (isShortMovie) {
@@ -191,9 +216,6 @@ function App() {
       return filterOnInputValue;
     }
   }
-
-
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -233,7 +255,6 @@ function App() {
               <ProtectedRoute
                 element={Profile}
                 isLogged={isLogged}
-                currentUser={currentUser}
                 onUpdate={onUpdateProfile}
                 onSignOut={onSignOut}
                 requestError={requestError}
@@ -242,19 +263,23 @@ function App() {
             } />
 
             <Route path='/signup' element={
-              <Register
-                currentUser={currentUser}
-                onRegister={handleRegister}
-                requestError={requestError}
-              />
+              isLogged ?
+                <Navigate to='/movies' replace />
+                :
+                <Register
+                  onRegister={handleRegister}
+                  requestError={requestError}
+                />
             } />
 
             <Route path='/signin' element={
-              <Login
-                currentUser={currentUser}
-                onLogin={onLogin}
-                requestError={requestError}
-              />
+              isLogged ?
+                <Navigate to='/movies' replace />
+                :
+                <Login
+                  onLogin={onLogin}
+                  requestError={requestError}
+                />
             } />
 
             <Route path='*' element={

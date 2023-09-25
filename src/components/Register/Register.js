@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './Register.css';
 import InputForm from '../InputForm/InputForm';
 import Form from '../Form/Form';
 import useFormAndValidation from '../../hooks/useFormAndValidation';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { RegExp_email, RegExp_name } from '../../utils/constants';
 
-function Register({ currentUser, onRegister, requestError }) {
+function Register({ onRegister, requestError }) {
 
+    const currentUser = useContext(CurrentUserContext);
     const { values, handleChange, errors, isValid, } = useFormAndValidation({});
 
     const onSubmit = (evt) => {
@@ -52,6 +55,7 @@ function Register({ currentUser, onRegister, requestError }) {
                             id="email"
                             title="E-mail"
                             type="email"
+                            pattern={RegExp_email}
                             placeholder="E-mail"
                             minLength="8"
                             maxLength="30"

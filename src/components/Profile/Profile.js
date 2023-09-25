@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import './Profile.css';
 import useFormAndValidation from '../../hooks/useFormAndValidation';
 import InputForm from '../InputForm/InputForm';
+import { RegExp_email } from '../../utils/constants';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Profile({ currentUser, onUpdate, onSignOut, requestError, resetRequestError }) {
+function Profile({ onUpdate, onSignOut, requestError, resetRequestError }) {
 
     const { values, handleChange, errors, isValid, setValues, setIsValid } = useFormAndValidation({});
     const [isEditProfile, setIsEditProfile] = useState(false);
+    const currentUser = useContext(CurrentUserContext);
 
     const handleEditProfile = (evt) => {
         evt.preventDefault();
@@ -66,6 +69,7 @@ function Profile({ currentUser, onUpdate, onSignOut, requestError, resetRequestE
                         id="email"
                         title="E-mail"
                         type="email"
+                        pattern={RegExp_email}
                         placeholder={currentUser.email}
                         minLength="8"
                         maxLength="30"

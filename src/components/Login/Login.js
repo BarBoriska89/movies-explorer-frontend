@@ -1,12 +1,15 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import './Login.css';
 import Form from '../Form/Form';
 import InputForm from '../InputForm/InputForm';
 import useFormAndValidation from '../../hooks/useFormAndValidation';
+import { RegExp_email } from '../../utils/constants';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Login({ currentUser, onLogin, requestError }) {
+function Login({ onLogin, requestError }) {
 
+    const currentUser = useContext(CurrentUserContext);
     const { values, handleChange, errors, isValid, } = useFormAndValidation({});
 
     function onSubmit(evt) {
@@ -38,6 +41,7 @@ function Login({ currentUser, onLogin, requestError }) {
                             name="email"
                             title="E-mail"
                             type="email"
+                            pattern={RegExp_email}
                             placeholder="E-mail"
                             minLength="8"
                             maxLength="30"

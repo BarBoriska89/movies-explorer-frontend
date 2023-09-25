@@ -34,6 +34,18 @@ class MainApi {
         };
     }
 
+    getContent(token) {
+        return fetch(`${BASE_URL}/users/me`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(this._checkResponse);
+    }
+
     authorize(email, password) {
         return fetch(`${BASE_URL}/signin`, {
             method: 'POST',

@@ -18,7 +18,7 @@ function Movies({ onFilterMovies, addMovieToSaved, deleteMovieFromSaved, savedMo
     const [isLoadedInfo, setIsLoadedInfo] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
 
-    function handleSearchMovie({ inputValue, isShortMovie, isClickSearch, }) {
+    async function handleSearchMovie({ inputValue, isShortMovie, isClickSearch, }) {
 
         setErrorMessage(null);
 
@@ -32,24 +32,29 @@ function Movies({ onFilterMovies, addMovieToSaved, deleteMovieFromSaved, savedMo
         if (inputValue !== '') {
             setIsLoadedInfo(false);
 
-            moviesApi
-                .getMovies()
-                .then((movies) => {
-                    localStorage.setItem('allMovies', JSON.stringify(movies));
-                    localStorage.setItem('search-text', inputValue);
-                    localStorage.setItem('isShortMovie', isShortMovie);
-                    const filteredMovies = onFilterMovies({ movies, inputValue, isShortMovie });
-                    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-                    setSearchMovies(filteredMovies);
-                    setIsLoadedInfo(true);
-                    if (filteredMovies.length === 0) {
-                        setErrorMessage('Ничего не найдено');
-                    }
+            if (localStorage.getItem('allMovies') === null) {
+                await moviesApi
+                    .getMovies()
+                    .then((movies) => {
+                        localStorage.setItem('allMovies', JSON.stringify(movies));
 
-                })
-                .catch((error) => {
-                    setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.');
-                })
+                    })
+                    .catch((error) => {
+                        setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.');
+                    })
+            }
+
+            const movies = JSON.parse(localStorage.getItem('allMovies'));
+            localStorage.setItem('search-text', inputValue);
+            localStorage.setItem('isShortMovie', isShortMovie);
+            const filteredMovies = onFilterMovies({ movies, inputValue, isShortMovie });
+            localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+            setSearchMovies(filteredMovies);
+            setIsLoadedInfo(true);
+            if (filteredMovies.length === 0) {
+                setErrorMessage('Ничего не найдено');
+            }
+
         }
     }
     return (

@@ -4,16 +4,20 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import More from '../More/More';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import {
+    BIG_SCREEN_STEP_ADD_CARD, MEDIUM_SCREEN_MAX_WIDTH, SMALL_SCREEN_MAX_WIDTH, SMALL_SCREEN_STEP_ADD_CARD,
+    SMALL_SCREEN_START_VISIBLE_CARD, MEDIUM_SCREEN_START_VISIBLE_CARD, BIG_SCREEN_START_VISIBLE_CARD
+} from '../../utils/constants';
 
 function MoviesCardList({ movies, widthWindow, addMovieToSaved, deleteMovieFromSaved, savedMovies }) {
 
     const location = useLocation();
 
-    const smallScreen = widthWindow <= 767;
-    const mediumScreen = widthWindow <= 1279;
+    const smallScreen = widthWindow <= SMALL_SCREEN_MAX_WIDTH;
+    const mediumScreen = widthWindow <= MEDIUM_SCREEN_MAX_WIDTH;
 
-    const step = (mediumScreen ? (smallScreen ? 1 : 2) : 3);
-    const [visibleMovies, setVisibleMovies] = useState((mediumScreen ? (smallScreen ? 5 : 8) : 12));
+    const step = (mediumScreen ? SMALL_SCREEN_STEP_ADD_CARD : BIG_SCREEN_STEP_ADD_CARD);
+    const [visibleMovies, setVisibleMovies] = useState((mediumScreen ? (smallScreen ? SMALL_SCREEN_START_VISIBLE_CARD : MEDIUM_SCREEN_START_VISIBLE_CARD) : BIG_SCREEN_START_VISIBLE_CARD));
 
     const visibleMoviesData = movies.slice(0, visibleMovies);
 
@@ -37,7 +41,7 @@ function MoviesCardList({ movies, widthWindow, addMovieToSaved, deleteMovieFromS
                     ))
                     :
                     location.pathname === '/saved-movies' ?
-                        visibleMoviesData.map((movie) => (
+                        movies.map((movie) => (
                             <MoviesCard
                                 key={movie._id}
                                 movie={movie}
@@ -50,8 +54,11 @@ function MoviesCardList({ movies, widthWindow, addMovieToSaved, deleteMovieFromS
                         null
                 }
             </ul>
-            {visibleMovies < movies.length &&
+            {location.pathname === '/movies' ?
+                visibleMovies < movies.length &&
                 < More location={location.pathname} onClick={handleLoadMore} visibleMovies={visibleMovies} movies={movies} />
+                :
+                null
             }
         </section>
     );
