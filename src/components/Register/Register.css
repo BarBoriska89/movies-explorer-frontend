@@ -1,0 +1,24 @@
+.auth__register {
+    margin: 0 auto;
+    max-width: 396px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: #202020;
+    /*padding-top: 70px;*/
+}
+
+@media screen and (max-width: 900px) {
+    .auth__register {
+        padding-top: 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .auth__register {
+        max-width: 260px;
+        align-items: center;
+        padding-top: 0;
+    }
+}

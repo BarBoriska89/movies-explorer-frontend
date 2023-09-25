@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  background: #202020;
+  margin: 0 auto;
+  padding: 0;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex-grow: 1;
+
+}
+
+nav .active{
+  font-weight: 500;
+}
